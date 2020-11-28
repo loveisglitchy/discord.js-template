@@ -8,14 +8,7 @@ module.exports = class extends Command {
 			aliases: [],
 			description: '',
 			category: '',
-			usage: '',
-            userPerms: [],
-            botPerms: [],
-            guildOnly: true,
-            ownerOnly: false,
-            nsfw: false,
-            args: false,
-			cooldown: #
+			usage: ''
 		});
 	}
 
