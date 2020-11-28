@@ -1,4 +1,5 @@
 const Event = require('../../Structures/Event');
+const data = {};
 
 module.exports = class extends Event {
 
@@ -7,11 +8,10 @@ module.exports = class extends Event {
 		const mentionRegexPrefix = RegExp(`^<@!${this.client.user.id}> `);
 
 		if (!message.guild || message.author.bot) return;
+		data.guild = await this.client.utils.guild(message.guild.id);
 
-		if (message.content.match(mentionRegex)) message.channel.send(`My prefix for ${message.guild.name} is \`${this.client.prefix}\`.`);
-
-		const prefix = message.content.match(mentionRegexPrefix) ?
-			message.content.match(mentionRegexPrefix)[0] : this.client.prefix;
+		const prefix = data.guild.prefix ? data.guild.prefix : ",";
+		if (message.content.match(mentionRegex)) message.channel.send(`My prefix for ${message.guild.name} is \`${prefix}\`.`);
 
 		const [cmd, ...args] = message.content.slice(prefix.length).trim().split(/ +/g);
 
