@@ -21,6 +21,8 @@ module.exports = class CLIENT extends Client {
 		this.utils = new Util(this);
 
 		this.owners = options.owners;
+
+		this.mongoose = require('./mongoose');
 	}
 
 	validate(options) {

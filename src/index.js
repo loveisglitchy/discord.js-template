@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-const Client = require('./Structures/Client');
+const Client = require('./Structures/CLIENT');
 
 const config = process.env;
 
