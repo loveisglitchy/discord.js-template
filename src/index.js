@@ -7,5 +7,5 @@ const config = process.env;
 
 const client = new Client(config);
 
-client.init();
+client.init(); //only if you want to use mongoose
 client.start();
