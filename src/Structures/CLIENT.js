@@ -1,11 +1,14 @@
 const { Client, Collection } = require('discord.js');
 const Util = require('./Util.js');
 
-module.exports = class MenuDocsClient extends Client {
+module.exports = class CLIENT extends Client {
 
 	constructor(options = {}) {
 		super({
-			disableMentions: 'everyone'
+			partials: ["CHANNEL", "GUILD_MEMBER", "MESSAGE", "REACTION", "USER"],
+           		autoReconnect: true,
+            		//ws: {intents: ["GUILDS", "GUILD_MEMBERS", "GUILD_PRESENCES"]},
+            		disableMentions: 'everyone'
 		});
 		this.validate(options);
 
@@ -31,6 +34,10 @@ module.exports = class MenuDocsClient extends Client {
 		this.prefix = options.prefix;
 	}
 
+	async init(mongoose) {
+        	await this.mongoose.init(this);
+    
+	}
 	async start(token = this.token) {
 		this.utils.loadCommands();
 		this.utils.loadEvents();
