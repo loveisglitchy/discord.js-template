@@ -1,0 +1,24 @@
+const Command = require('../../Structures/Command');
+
+module.exports = class extends Command {
+
+	constructor(...args) {
+		super(...args, {
+            name: '',
+			aliases: [],
+			description: '',
+			category: '',
+			usage: '',
+            userPerms: [],
+            botPerms: [],
+            guildOnly: true,
+            ownerOnly: false,
+            nsfw: false,
+            args: false,
+			cooldown: #
+		});
+	}
+
+	async run(message) {
+    }
+}
