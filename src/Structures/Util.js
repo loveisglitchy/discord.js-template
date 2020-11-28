@@ -3,6 +3,7 @@ const { promisify } = require('util');
 const glob = promisify(require('glob'));
 const Command = require('./Command.js');
 const Event = require('./Event.js');
+const Guild = require('./models/Guild');
 
 module.exports = class Util {
 
@@ -21,7 +22,7 @@ module.exports = class Util {
 	}
 
 	async loadCommands() {
-		return glob(`${this.directory}commands/**/*.js`).then(commands => {
+		return glob(`${this.directory}Commands/**/*.js`).then(commands => {
 			for (const commandFile of commands) {
 				delete require.cache[commandFile];
 				const { name } = path.parse(commandFile);
@@ -40,7 +41,7 @@ module.exports = class Util {
 	}
 
 	async loadEvents() {
-		return glob(`${this.directory}events/**/*.js`).then(events => {
+		return glob(`${this.directory}Events/**/*.js`).then(events => {
 			for (const eventFile of events) {
 				delete require.cache[eventFile];
 				const { name } = path.parse(eventFile);
@@ -52,6 +53,20 @@ module.exports = class Util {
 				event.emitter[event.type](name, (...args) => event.run(...args));
 			}
 		});
+	}
+	async guild(guildID) {
+		const guild = await Guild.findOne({
+			id: guildID
+		});
+		if (!guild) {
+			const newData = new Guild({
+				id: guildID
+			});
+			newData.save();
+			return newData;
+		} else {
+			return guild;
+		}
 	}
 
 };
