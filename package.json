@@ -2,7 +2,7 @@
   "name": "discord.js-template",
   "version": "0.0.1",
   "main": "src/index",
-  "author": "MenuDocs",
+  "author": "glitchy",
   "license": "MIT",
   "devDependencies": {
     "eslint": "^7.0.0",
