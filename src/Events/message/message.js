@@ -16,8 +16,15 @@ module.exports = class extends Event {
 		const [cmd, ...args] = message.content.slice(prefix.length).trim().split(/ +/g);
 
 		const command = this.client.commands.get(cmd.toLowerCase()) || this.client.commands.get(this.client.aliases.get(cmd.toLowerCase()));
-		if (command) {
-			command.run(message, args, data);
+		if (!command) {
+			return this.client.utils.error(`Sorry, I don't know **${cmd}** as a command.`, message.channel);
+		} else {
+			try {
+				command.run(message, args, data);
+			} catch (error) {
+				console.error(error);
+				this.client.utils.error('there was an error trying to execute that command!', message.channel);
+			}
 		}
 	}
 
