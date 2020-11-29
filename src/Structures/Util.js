@@ -62,6 +62,9 @@ module.exports = class Util {
 			}
 		});
 	}
+	/**
+	 * use this function to get a specific guild from mongo
+	 */
 	async guild(guildID) {
 		const guild = await Guild.findOne({
 			id: guildID
@@ -77,4 +80,29 @@ module.exports = class Util {
 		}
 	}
 
+	/**
+	 * use this function within commands to get a guild's prefix from mongo
+	 */
+	async getPrefix(guildID) {
+		const prefix = await Guild.findOne({
+			id: guildID
+		});
+		return prefix.prefix;
+	}
+
+	/**
+	 * converts a single line message into an embed
+	 * this.client.utils.error("string", channel)
+	 */
+	error(message, channel) {
+		channel.send(this.client.embed.setDescription(`\\📛 **Error:** \\📛\n ${message} `).setColor('RED'))
+	}
+
+	/**
+	 * converts a single line message into an embed
+	 * this.client.utils.success("string", channel)
+	 */
+	success(message, channel) {
+		channel.send(this.client.embed.setDescription(`\\✅ **Success:** \\✅\n ${message}  `).setColor('GREEN'))
+	}
 };
